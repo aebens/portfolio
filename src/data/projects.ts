@@ -10,13 +10,13 @@ export const projects: Project[] = [
     medium: "webapp",
     mediumLabel: "Web App",
     date: "2025",
-    body: `<p>FultonHistory.com is an invaluable resource for genealogy researchers, but its native search interface presents significant usability challenges. This project reimagines the search experience with an intuitive, modern interface.</p>
+    body: `<p>FultonHistory.com is an invaluable resource for genealogy researchers, but its native boolean search interface can be challenging to use. This tool provides an intuitive query builder that generates properly formatted search queries.</p>
       <h3>The Problem</h3>
-      <p>Researchers spend excessive time wrestling with the search mechanics rather than focusing on their actual research. The original interface lacks filtering, saved searches, and result previewing.</p>
+      <p>Researchers need to understand boolean operators, proximity syntax, and filename filtering to effectively search the Fulton archive. The learning curve prevents many users from accessing the full power of the search engine.</p>
       <h3>The Solution</h3>
-      <p>A streamlined search interface with advanced filtering by date range, location, and publication, inline result previews, and the ability to save and organize search sessions for ongoing research projects.</p>`,
-    tech: ["HTML/CSS/JS", "Python", "Search API", "Responsive Design"],
-    image: "/images/fultonsearch.png"
+      <p>A guided query builder with separate fields for each search term, visual proximity configuration, optional date/location filters, and OCR character swap suggestions. The tool generates the complex boolean query automatically, which users can copy and paste into Fulton History's search box.</p>`,
+    tech: ["React", "TypeScript", "Claude AI"],
+    image: "/images/fultonsearch.png?v=2"
   },
   {
     id: 2,
