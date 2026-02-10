@@ -6,7 +6,7 @@ import ProjectPage from './pages/ProjectPage';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/portfolio">
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
