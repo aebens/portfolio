@@ -4,7 +4,20 @@
       "Read(//c/Users/retai/Documents/**)",
       "Bash(npm create:*)",
       "Bash(npm install:*)",
-      "Bash(timeout 10 npm run dev:*)"
+      "Bash(timeout 10 npm run dev:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run build:*)",
+      "Bash(timeout 8 npm run dev:*)",
+      "Bash(netstat:*)",
+      "Bash(taskkill:*)",
+      "Bash(npm run dev:*)",
+      "Bash(curl:*)",
+      "Bash(git add:*)",
+      "Bash(git rm:*)",
+      "Bash(git commit:*)",
+      "WebFetch(domain:aebens.github.io)",
+      "Bash(\"C:\\\\Users\\\\retai\\\\Documents\\\\Web Development\\\\Portfolio\\\\portfolio\\\\.github\\\\workflows\\\\deploy.yml\" << 'EOF'\nname: Deploy to GitHub Pages\n\non:\n  push:\n    branches: [ main ]\n  workflow_dispatch:\n\npermissions:\n  contents: read\n  pages: write\n  id-token: write\n\nconcurrency:\n  group: \"pages\"\n  cancel-in-progress: false\n\njobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n      - name: Checkout\n        uses: actions/checkout@v4\n      \n      - name: Setup Node\n        uses: actions/setup-node@v4\n        with:\n          node-version: '20'\n          cache: 'npm'\n      \n      - name: Install dependencies\n        run: npm ci\n      \n      - name: Build\n        run: npm run build\n      \n      - name: Setup Pages\n        uses: actions/configure-pages@v4\n      \n      - name: Upload artifact\n        uses: actions/upload-pages-artifact@v3\n        with:\n          path: './dist'\n      \n      - name: Deploy to GitHub Pages\n        id: deployment\n        uses: actions/deploy-pages@v4\nEOF)",
+      "Bash(git push:*)"
     ]
   }
 }

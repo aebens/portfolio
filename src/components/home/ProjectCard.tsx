@@ -7,12 +7,15 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, onClick }: ProjectCardProps) {
+  // Construct image path with Vite base URL for proper routing
+  const imageSrc = project.image ? `${import.meta.env.BASE_URL}${project.image.replace(/^\//, '')}` : null;
+
   return (
     <div className="project-card visible" onClick={onClick}>
       <div className="project-thumb">
-        {project.image ? (
+        {imageSrc ? (
           <img
-            src={project.image}
+            src={imageSrc}
             alt={project.title}
             style={{
               width: '100%',

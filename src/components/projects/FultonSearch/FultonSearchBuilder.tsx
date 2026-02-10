@@ -14,7 +14,6 @@ interface OCRSwap {
 }
 
 const SEARCH_MODES = {
-  SIMPLE: "simple",
   BOOLEAN: "boolean",
   GUIDED: "guided",
 } as const;
@@ -91,65 +90,167 @@ interface TermRowProps {
 }
 
 function TermRow({ term, index, onUpdate, onRemove, canRemove }: TermRowProps) {
+  // For proximity search, parse the value into parts
+  const isProximity = term.type === 'proximity';
+  let proximityTerm1 = '';
+  let proximityDistance = '3';
+  let proximityTerm2 = '';
+
+  if (isProximity && term.value) {
+    // More lenient regex that handles partial input
+    const match = term.value.match(/^(.*?)\s*w\/(\d+)\s*(.*)$/);
+    if (match) {
+      proximityTerm1 = match[1].trim();
+      proximityDistance = match[2];
+      proximityTerm2 = match[3].trim();
+    }
+  }
+
+  const updateProximity = (field: 'term1' | 'distance' | 'term2', value: string) => {
+    let t1 = field === 'term1' ? value.trim() : proximityTerm1;
+    let dist = field === 'distance' ? value.trim() : proximityDistance;
+    let t2 = field === 'term2' ? value.trim() : proximityTerm2;
+
+    // Build the w/N syntax
+    const newValue = `${t1} w/${dist} ${t2}`.trim();
+    onUpdate(index, { ...term, value: newValue });
+  };
+
   return (
     <div style={{
-      display: "flex", gap: "8px", alignItems: "center",
+      display: "flex", gap: "8px", alignItems: "flex-start",
       padding: "10px 12px",
       background: index % 2 === 0 ? "var(--surface-alt)" : "transparent",
       borderRadius: "6px",
+      flexWrap: "wrap",
     }}>
-      {index > 0 && (
+      <div style={{ display: "flex", gap: "8px", alignItems: "flex-start", flex: 1, flexWrap: "wrap", minWidth: 0 }}>
+        {index > 0 && (
+          <select
+            value={term.operator}
+            onChange={(e) => onUpdate(index, { ...term, operator: e.target.value as Term['operator'] })}
+            style={{
+              padding: "6px 8px", borderRadius: "4px",
+              border: "1px solid var(--border)", background: "var(--surface)",
+              fontFamily: "'IBM Plex Mono', monospace", fontSize: "12px",
+              color: "var(--accent)", fontWeight: 600, cursor: "pointer",
+              minWidth: "70px",
+            }}
+          >
+            <option value="AND">AND</option>
+            <option value="OR">OR</option>
+            <option value="AND NOT">NOT</option>
+          </select>
+        )}
+        {index === 0 && <div style={{ minWidth: "70px" }} />}
+
         <select
-          value={term.operator}
-          onChange={(e) => onUpdate(index, { ...term, operator: e.target.value as Term['operator'] })}
+          value={term.type}
+          onChange={(e) => {
+            const newType = e.target.value as Term['type'];
+            let newValue = term.value;
+
+            // If switching TO proximity, initialize with w/3 template
+            if (newType === 'proximity' && term.type !== 'proximity') {
+              newValue = ' w/3 ';
+            }
+            // If switching FROM proximity to something else, clear the value
+            else if (term.type === 'proximity' && newType !== 'proximity') {
+              newValue = '';
+            }
+
+            onUpdate(index, { ...term, type: newType, value: newValue });
+          }}
           style={{
             padding: "6px 8px", borderRadius: "4px",
             border: "1px solid var(--border)", background: "var(--surface)",
-            fontFamily: "'IBM Plex Mono', monospace", fontSize: "12px",
-            color: "var(--accent)", fontWeight: 600, cursor: "pointer",
-            minWidth: "70px",
+            fontSize: "13px", color: "var(--text)", cursor: "pointer",
+            minWidth: "120px",
           }}
         >
-          <option value="AND">AND</option>
-          <option value="OR">OR</option>
-          <option value="AND NOT">NOT</option>
+          <option value="phrase">Exact phrase</option>
+          <option value="proximity">Proximity</option>
+          <option value="word">Single word</option>
+          <option value="wildcard">Wildcard (?)</option>
         </select>
-      )}
-      {index === 0 && <div style={{ minWidth: "70px" }} />}
 
-      <select
-        value={term.type}
-        onChange={(e) => onUpdate(index, { ...term, type: e.target.value as Term['type'] })}
-        style={{
-          padding: "6px 8px", borderRadius: "4px",
-          border: "1px solid var(--border)", background: "var(--surface)",
-          fontSize: "13px", color: "var(--text)", cursor: "pointer",
-          minWidth: "120px",
-        }}
-      >
-        <option value="phrase">Exact phrase</option>
-        <option value="proximity">Proximity (w/N)</option>
-        <option value="word">Single word</option>
-        <option value="wildcard">Wildcard (?)</option>
-      </select>
-
-      <input
-        type="text"
-        value={term.value}
-        onChange={(e) => onUpdate(index, { ...term, value: e.target.value })}
-        placeholder={
-          term.type === "phrase" ? '"John Smith"' :
-          term.type === "proximity" ? 'Smith w/3 married' :
-          term.type === "wildcard" ? 'Gard?n?er' :
-          'keyword'
-        }
-        style={{
-          flex: 1, padding: "6px 10px", borderRadius: "4px",
-          border: "1px solid var(--border)", background: "var(--surface)",
-          fontSize: "13px", fontFamily: "'IBM Plex Mono', monospace",
-          color: "var(--text)",
-        }}
-      />
+        <div style={{ flex: 1, minWidth: "200px" }}>
+          {!isProximity ? (
+            <>
+              <input
+                type="text"
+                value={term.value}
+                onChange={(e) => onUpdate(index, { ...term, value: e.target.value })}
+                placeholder={
+                  term.type === "phrase" ? 'John Smith' :
+                  term.type === "wildcard" ? 'Gard?n?er' :
+                  'keyword'
+                }
+                style={{
+                  width: "100%", padding: "6px 10px", borderRadius: "4px",
+                  border: "1px solid var(--border)", background: "var(--surface)",
+                  fontSize: "13px", fontFamily: "'IBM Plex Mono', monospace",
+                  color: "var(--text)",
+                }}
+              />
+              {term.type === "phrase" && (
+                <p className="hint" style={{ marginTop: "4px", fontSize: "11px", lineHeight: "1.4" }}>
+                  Quotes will be added automatically around your phrase (e.g., John Smith becomes <code style={{ background: "var(--surface)", padding: "1px 3px", borderRadius: "2px" }}>"John Smith"</code>).
+                </p>
+              )}
+              {term.type === "wildcard" && (
+                <p className="hint" style={{ marginTop: "4px", fontSize: "11px", lineHeight: "1.4" }}>
+                  <strong>?</strong> = any single character (e.g., <code style={{ background: "var(--surface)", padding: "1px 3px", borderRadius: "2px" }}>Gard?ner</code> matches Gardner or Gardiner).
+                  <strong> *</strong> = multiple characters (e.g., <code style={{ background: "var(--surface)", padding: "1px 3px", borderRadius: "2px" }}>Smith*</code> matches Smithson or Smithwick).
+                </p>
+              )}
+            </>
+          ) : (
+            <div style={{ display: "flex", gap: "6px", alignItems: "center", flexWrap: "wrap" }}>
+              <input
+                type="text"
+                value={proximityTerm1}
+                onChange={(e) => updateProximity('term1', e.target.value)}
+                placeholder="Smith"
+                style={{
+                  flex: "1 1 80px", padding: "6px 10px", borderRadius: "4px",
+                  border: "1px solid var(--border)", background: "var(--surface)",
+                  fontSize: "13px", fontFamily: "'IBM Plex Mono', monospace",
+                  color: "var(--text)",
+                }}
+              />
+              <span style={{ fontSize: "12px", color: "var(--text-muted)", whiteSpace: "nowrap" }}>within</span>
+              <input
+                type="number"
+                min="1"
+                max="20"
+                value={proximityDistance}
+                onChange={(e) => updateProximity('distance', e.target.value)}
+                style={{
+                  width: "50px", padding: "6px 8px", borderRadius: "4px",
+                  border: "1px solid var(--border)", background: "var(--surface)",
+                  fontSize: "13px", fontFamily: "'IBM Plex Mono', monospace",
+                  color: "var(--text)",
+                  textAlign: "center",
+                }}
+              />
+              <span style={{ fontSize: "12px", color: "var(--text-muted)", whiteSpace: "nowrap" }}>words of</span>
+              <input
+                type="text"
+                value={proximityTerm2}
+                onChange={(e) => updateProximity('term2', e.target.value)}
+                placeholder="married"
+                style={{
+                  flex: "1 1 80px", padding: "6px 10px", borderRadius: "4px",
+                  border: "1px solid var(--border)", background: "var(--surface)",
+                  fontSize: "13px", fontFamily: "'IBM Plex Mono', monospace",
+                  color: "var(--text)",
+                }}
+              />
+            </div>
+          )}
+        </div>
+      </div>
 
       <button
         onClick={() => onRemove(index)}
@@ -158,7 +259,7 @@ function TermRow({ term, index, onUpdate, onRemove, canRemove }: TermRowProps) {
           padding: "6px", borderRadius: "4px", border: "none",
           background: "transparent", cursor: canRemove ? "pointer" : "default",
           color: canRemove ? "var(--text-muted)" : "transparent",
-          display: "flex", alignItems: "center",
+          display: "flex", alignItems: "center", flexShrink: 0,
         }}
         title="Remove term"
       >
@@ -216,8 +317,8 @@ function Tooltip({ text }: { text: string }) {
       <InfoIcon />
       {show && (
         <div style={{
-          position: "absolute", bottom: "calc(100% + 6px)", left: "50%",
-          transform: "translateX(-50%)", padding: "8px 12px",
+          position: "absolute", bottom: "calc(100% + 6px)", left: "0",
+          padding: "8px 12px",
           background: "var(--text)", color: "var(--bg)", borderRadius: "6px",
           fontSize: "12px", lineHeight: "1.5", whiteSpace: "nowrap",
           zIndex: 100, pointerEvents: "none",
@@ -231,8 +332,7 @@ function Tooltip({ text }: { text: string }) {
 }
 
 export default function FultonSearchBuilder() {
-  const [mode, setMode] = useState<typeof SEARCH_MODES.GUIDED | typeof SEARCH_MODES.BOOLEAN | typeof SEARCH_MODES.SIMPLE>(SEARCH_MODES.GUIDED);
-  const [simpleQuery, setSimpleQuery] = useState<string>("");
+  const [mode, setMode] = useState<typeof SEARCH_MODES.GUIDED | typeof SEARCH_MODES.BOOLEAN>(SEARCH_MODES.GUIDED);
   const [booleanQuery, setBooleanQuery] = useState<string>("");
   const [terms, setTerms] = useState<Term[]>([{ type: "phrase", value: "", operator: "AND" }]);
   const [dateFrom, setDateFrom] = useState<string>("");
@@ -306,9 +406,15 @@ export default function FultonSearchBuilder() {
   }, [terms, dateFrom, dateTo, newspaper, state]);
 
   const getFinalQuery = () => {
-    if (mode === SEARCH_MODES.SIMPLE) return simpleQuery;
     if (mode === SEARCH_MODES.BOOLEAN) return booleanQuery;
     return buildGuidedQuery();
+  };
+
+  const editQuery = () => {
+    // Switch to Boolean mode with the guided query pre-filled
+    const guidedQuery = buildGuidedQuery();
+    setBooleanQuery(guidedQuery);
+    setMode(SEARCH_MODES.BOOLEAN);
   };
 
   const launchSearch = () => {
@@ -513,49 +619,22 @@ export default function FultonSearchBuilder() {
             <button className={`mode-tab ${mode === SEARCH_MODES.GUIDED ? "active" : ""}`}
               onClick={() => setMode(SEARCH_MODES.GUIDED)}>Guided Builder</button>
             <button className={`mode-tab ${mode === SEARCH_MODES.BOOLEAN ? "active" : ""}`}
-              onClick={() => setMode(SEARCH_MODES.BOOLEAN)}>Boolean (Raw)</button>
-            <button className={`mode-tab ${mode === SEARCH_MODES.SIMPLE ? "active" : ""}`}
-              onClick={() => setMode(SEARCH_MODES.SIMPLE)}>Simple</button>
+              onClick={() => setMode(SEARCH_MODES.BOOLEAN)}>Boolean (Manual)</button>
           </div>
         </div>
-
-        {/* Simple Mode */}
-        {mode === SEARCH_MODES.SIMPLE && (
-          <div className="fade-in" style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-            <div>
-              <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "6px" }}>
-                Search terms
-              </label>
-              <input
-                type="text"
-                value={simpleQuery}
-                onChange={(e) => setSimpleQuery(e.target.value)}
-                placeholder='e.g. "John Smith" Oswego'
-                style={{
-                  width: "100%", padding: "10px 14px", borderRadius: "6px",
-                  border: "1px solid var(--border)", background: "var(--surface)",
-                  fontSize: "15px",
-                }}
-              />
-              <p className="hint" style={{ marginTop: "6px" }}>
-                Use "quotes" for exact phrases. Fulton History will search all words.
-              </p>
-            </div>
-          </div>
-        )}
 
         {/* Boolean Mode */}
         {mode === SEARCH_MODES.BOOLEAN && (
           <div className="fade-in" style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
             <div>
               <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "6px" }}>
-                Boolean query
+                Manual query editor
               </label>
               <textarea
                 value={booleanQuery}
                 onChange={(e) => setBooleanQuery(e.target.value)}
                 placeholder={'e.g. "John Smith" AND (obituary OR death) AND (filename contains (Rochester)) AND (filename contains (1890~~1910))'}
-                rows={4}
+                rows={6}
                 style={{
                   width: "100%", padding: "10px 14px", borderRadius: "6px",
                   border: "1px solid var(--border)", background: "var(--surface)",
@@ -564,7 +643,7 @@ export default function FultonSearchBuilder() {
                 }}
               />
               <p className="hint" style={{ marginTop: "6px" }}>
-                Operators: AND, OR, NOT, w/N (proximity), ? (single-char wildcard), * (multi-char wildcard).
+                Manually edit your boolean query. Operators: AND, OR, NOT, w/N (proximity), ? (single-char wildcard), * (multi-char wildcard).
                 Date range: <code style={{ background: "var(--surface-alt)", padding: "1px 4px", borderRadius: "2px" }}>filename contains (1890~~1920)</code>
               </p>
             </div>
@@ -689,9 +768,16 @@ export default function FultonSearchBuilder() {
             <label style={{ fontSize: "13px", fontWeight: 600 }}>
               {mode === SEARCH_MODES.GUIDED ? "Generated Query" : "Your Query"}
             </label>
-            <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>
-              {mode !== SEARCH_MODES.SIMPLE ? "Paste as Boolean search on Fulton History" : "Paste as search on Fulton History"}
-            </span>
+            <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+              {mode === SEARCH_MODES.GUIDED && finalQuery && (
+                <button className="btn-ghost" onClick={editQuery}>
+                  Edit Query
+                </button>
+              )}
+              <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>
+                Paste as Boolean search on Fulton History
+              </span>
+            </div>
           </div>
           <div className="preview-box">
             {finalQuery || <span style={{ color: "var(--text-muted)", fontStyle: "italic" }}>Your query will appear here…</span>}
@@ -812,7 +898,7 @@ export default function FultonSearchBuilder() {
         </div>
 
         {/* Footer */}
-        <footer style={{
+        <div style={{
           marginTop: "40px", paddingTop: "20px",
           borderTop: "1px solid var(--border-light)",
           fontSize: "12px", color: "var(--text-muted)", lineHeight: "1.6",
@@ -821,7 +907,7 @@ export default function FultonSearchBuilder() {
             style={{ color: "var(--accent)", textDecoration: "none" }}>fultonhistory.com</a>,
           an extraordinary free resource created by Tom Tryniski containing 47+ million digitized newspaper pages.
           No data is sent to or from Fulton History by this tool — it only helps you compose queries.
-        </footer>
+        </div>
       </div>
     </>
   );

@@ -43,6 +43,9 @@ export default function DetailPanel({
 
   const project = projects[currentIndex];
 
+  // Construct image path with Vite base URL for proper routing
+  const imageSrc = project.image ? `${import.meta.env.BASE_URL}${project.image.replace(/^\//, '')}` : null;
+
   return (
     <>
       <div
@@ -76,9 +79,9 @@ export default function DetailPanel({
           </div>
         </div>
         <div className="detail-hero">
-          {project.image ? (
+          {imageSrc ? (
             <img
-              src={project.image}
+              src={imageSrc}
               alt={project.title}
               style={{
                 width: '100%',
