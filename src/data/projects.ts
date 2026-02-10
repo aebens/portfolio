@@ -16,7 +16,7 @@ export const projects: Project[] = [
       <h3>The Solution</h3>
       <p>A streamlined search interface with advanced filtering by date range, location, and publication, inline result previews, and the ability to save and organize search sessions for ongoing research projects.</p>`,
     tech: ["HTML/CSS/JS", "Python", "Search API", "Responsive Design"],
-    image: "/images/fultonsearch.png"
+    image: "images/fultonsearch.png"
   },
   {
     id: 2,
