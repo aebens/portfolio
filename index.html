@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashley — Digital Media Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="styles.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-left">
+    <a href="#" class="logo">Ashley</a>
+    <span class="logo-tag">Digital Media Portfolio</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-greeting">Welcome</p>
+  <h1>Where research meets <em>design</em></h1>
+  <p class="hero-desc">A portfolio of digital media projects spanning genealogy research, research administration, interactive tools, and visual storytelling — built at the intersection of technology and human curiosity.</p>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="filter-section">
+    <div class="filter-group">
+      <span class="filter-label">Topic</span>
+      <div class="filter-chips" id="topic-filters">
+        <button class="filter-chip active" data-filter="all" onclick="setFilter('topic', 'all')">All</button>
+        <button class="filter-chip" data-filter="genealogy" onclick="setFilter('topic', 'genealogy')">Genealogy</button>
+        <button class="filter-chip" data-filter="ra" onclick="setFilter('topic', 'ra')">Research Admin</button>
+        <button class="filter-chip" data-filter="visual" onclick="setFilter('topic', 'visual')">Visual Media</button>
+        <button class="filter-chip" data-filter="tools" onclick="setFilter('topic', 'tools')">Interactive Tools</button>
+      </div>
+    </div>
+    <div class="filter-divider"></div>
+    <div class="filter-group">
+      <span class="filter-label">Medium</span>
+      <div class="filter-chips" id="medium-filters">
+        <button class="filter-chip active" data-filter="all" onclick="setFilter('medium', 'all')">All</button>
+        <button class="filter-chip" data-filter="webapp" onclick="setFilter('medium', 'webapp')">Web App</button>
+        <button class="filter-chip" data-filter="photo" onclick="setFilter('medium', 'photo')">Photography</button>
+        <button class="filter-chip" data-filter="video" onclick="setFilter('medium', 'video')">Video</button>
+        <button class="filter-chip" data-filter="design" onclick="setFilter('medium', 'design')">Design</button>
+        <button class="filter-chip" data-filter="training" onclick="setFilter('medium', 'training')">Training</button>
+      </div>
+    </div>
+    <div class="filter-results-count" id="results-count"></div>
+  </div>
+
+  <div class="project-grid" id="project-grid"></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="reveal">
+  <div class="about-photo"><span>Your photo</span></div>
+  <div class="about-content">
+    <h2>About</h2>
+    <p>I work at the intersection of research administration and digital media — designing tools, training programs, and visual experiences that make complex systems more accessible and human.</p>
+    <p>Currently in Sponsored Programs at Boston University and completing a Master of Liberal Arts in Digital Media Design at Harvard Extension School.</p>
+    <div class="about-grid">
+      <div>
+        <div class="about-item-label">Education</div>
+        <div class="about-item-value">Harvard Extension, MLA</div>
+      </div>
+      <div>
+        <div class="about-item-label">Certifications</div>
+        <div class="about-item-value">CPRA, CFRA</div>
+      </div>
+      <div>
+        <div class="about-item-label">Languages</div>
+        <div class="about-item-value">Python, SQL, VBA</div>
+      </div>
+      <div>
+        <div class="about-item-label">Design Tools</div>
+        <div class="about-item-value">Figma, Adobe Suite</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="reveal">
+  <h2>Interested in working together?</h2>
+  <div class="contact-actions">
+    <a href="mailto:hello@example.com" class="contact-btn primary">Get in touch</a>
+    <a href="#" class="contact-btn">LinkedIn</a>
+    <a href="#" class="contact-btn">GitHub</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>&copy; 2026 Ashley. All rights reserved.</span>
+  <span>Built with care</span>
+</footer>
+
+<!-- DETAIL PANEL -->
+<div class="detail-overlay" id="detail-overlay" onclick="closeDetail()"></div>
+<div class="detail-panel" id="detail-panel">
+  <div class="detail-close">
+    <button class="detail-close-btn" onclick="closeDetail()">&times;</button>
+    <div class="detail-nav-btns">
+      <button class="detail-nav-btn" onclick="navigateDetail(-1)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="detail-nav-btn" onclick="navigateDetail(1)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="detail-hero"><span>Project screenshot / media</span></div>
+  <div class="detail-content" id="detail-content"></div>
+</div>
+
+<script src="main.js"></script>
+
+</body>
+</html>
