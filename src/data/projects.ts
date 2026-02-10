@@ -1,5 +1,6 @@
-// ── PROJECT DATA ──
-const projects = [
+import type { Project } from './types';
+
+export const projects: Project[] = [
   {
     id: 1,
     title: "Fulton History Search Interface",
@@ -14,7 +15,8 @@ const projects = [
       <p>Researchers spend excessive time wrestling with the search mechanics rather than focusing on their actual research. The original interface lacks filtering, saved searches, and result previewing.</p>
       <h3>The Solution</h3>
       <p>A streamlined search interface with advanced filtering by date range, location, and publication, inline result previews, and the ability to save and organize search sessions for ongoing research projects.</p>`,
-    tech: ["HTML/CSS/JS", "Python", "Search API", "Responsive Design"]
+    tech: ["HTML/CSS/JS", "Python", "Search API", "Responsive Design"],
+    image: "/images/fultonsearch.png"
   },
   {
     id: 2,
@@ -161,143 +163,3 @@ const projects = [
     tech: ["HTML/CSS/JS", "Accessibility", "Legal Research", "Responsive Design"]
   }
 ];
-
-// ── STATE ──
-let activeTopicFilter = 'all';
-let activeMediumFilter = 'all';
-let visibleProjects = [...projects];
-let currentDetailIndex = -1;
-
-// ── ICONS ──
-const mediumIcons = {
-  webapp: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M7 21h10M12 17v4"/></svg>',
-  photo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M3 9h2M19 9h2"/></svg>',
-  video: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
-  design: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
-  training: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2zM22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>'
-};
-
-// ── RENDER ──
-function renderProjects() {
-  const grid = document.getElementById('project-grid');
-  grid.innerHTML = '';
-
-  visibleProjects = projects.filter(p => {
-    const topicMatch = activeTopicFilter === 'all' || p.topic === activeTopicFilter;
-    const mediumMatch = activeMediumFilter === 'all' || p.medium === activeMediumFilter;
-    return topicMatch && mediumMatch;
-  });
-
-  document.getElementById('results-count').textContent =
-    `Showing ${visibleProjects.length} project${visibleProjects.length !== 1 ? 's' : ''}`;
-
-  visibleProjects.forEach((p, i) => {
-    const card = document.createElement('div');
-    card.className = 'project-card';
-    card.onclick = () => openDetail(i);
-    card.innerHTML = `
-      <div class="project-thumb">
-        <span class="project-thumb-label">Screenshot</span>
-        <div class="project-thumb-icon">${mediumIcons[p.medium] || ''}</div>
-      </div>
-      <div class="project-body">
-        <div class="project-tags">
-          <span class="project-tag topic">${p.topicLabel}</span>
-          <span class="project-tag medium">${p.mediumLabel}</span>
-        </div>
-        <div class="project-title">${p.title}</div>
-        <div class="project-desc">${p.desc}</div>
-        <div class="project-footer">
-          <span class="project-date">${p.date}</span>
-          <span class="project-link">View details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-        </div>
-      </div>
-    `;
-    grid.appendChild(card);
-
-    // Staggered reveal
-    requestAnimationFrame(() => {
-      setTimeout(() => card.classList.add('visible'), i * 70);
-    });
-  });
-}
-
-// ── FILTERS ──
-function setFilter(type, value) {
-  if (type === 'topic') activeTopicFilter = value;
-  if (type === 'medium') activeMediumFilter = value;
-
-  const containerId = type === 'topic' ? 'topic-filters' : 'medium-filters';
-  document.querySelectorAll(`#${containerId} .filter-chip`).forEach(chip => {
-    chip.classList.toggle('active', chip.dataset.filter === value);
-  });
-
-  renderProjects();
-}
-
-// ── DETAIL PANEL ──
-function openDetail(index) {
-  currentDetailIndex = index;
-  const p = visibleProjects[index];
-  const content = document.getElementById('detail-content');
-
-  content.innerHTML = `
-    <div class="detail-tags">
-      <span class="project-tag topic">${p.topicLabel}</span>
-      <span class="project-tag medium">${p.mediumLabel}</span>
-    </div>
-    <h2>${p.title}</h2>
-    <div class="detail-meta">${p.date}</div>
-    <div class="detail-body">${p.body}</div>
-    <div class="detail-tech">
-      ${p.tech.map(t => `<span class="detail-tech-tag">${t}</span>`).join('')}
-    </div>
-  `;
-
-  document.getElementById('detail-overlay').classList.add('active');
-  document.getElementById('detail-panel').classList.add('active');
-  document.getElementById('detail-panel').scrollTop = 0;
-  document.body.style.overflow = 'hidden';
-}
-
-function closeDetail() {
-  document.getElementById('detail-overlay').classList.remove('active');
-  document.getElementById('detail-panel').classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-function navigateDetail(dir) {
-  const next = currentDetailIndex + dir;
-  if (next >= 0 && next < visibleProjects.length) {
-    openDetail(next);
-  }
-}
-
-// ── KEYBOARD ──
-document.addEventListener('keydown', (e) => {
-  const panel = document.getElementById('detail-panel');
-  if (!panel.classList.contains('active')) return;
-  if (e.key === 'Escape') closeDetail();
-  if (e.key === 'ArrowLeft') navigateDetail(-1);
-  if (e.key === 'ArrowRight') navigateDetail(1);
-});
-
-// ── NAV SCROLL ──
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 40);
-});
-
-// ── REVEAL ──
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      revealObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-// ── INIT ──
-renderProjects();
