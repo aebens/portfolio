@@ -1,5 +1,5 @@
-export type TopicFilter = 'all' | 'genealogy' | 'ra' | 'visual' | 'tools';
-export type MediumFilter = 'all' | 'webapp' | 'photo' | 'video' | 'design' | 'training';
+export type TopicFilter = 'all' | 'genealogy';
+export type MediumFilter = 'all' | 'webapp';
 
 export interface Project {
   id: number;

@@ -80,16 +80,35 @@ export default function DetailPanel({
         </div>
         <div className="detail-hero">
           {imageSrc ? (
-            <img
-              src={imageSrc}
-              alt={project.title}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                objectPosition: 'top'
-              }}
-            />
+            project.id === 1 || project.id === 2 ? (
+              <Link
+                to={project.id === 1 ? "/projects/fultonsearch" : "/projects/blacksdictionary"}
+                style={{ display: 'block', width: '100%', height: '100%' }}
+              >
+                <img
+                  src={imageSrc}
+                  alt={project.title}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'top',
+                    cursor: 'pointer'
+                  }}
+                />
+              </Link>
+            ) : (
+              <img
+                src={imageSrc}
+                alt={project.title}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  objectPosition: 'top'
+                }}
+              />
+            )
           ) : (
             <span>Project screenshot / media</span>
           )}
@@ -106,10 +125,10 @@ export default function DetailPanel({
             dangerouslySetInnerHTML={{ __html: project.body }}
           />
 
-          {/* Show link to interactive tool for Fulton Search project */}
-          {project.id === 1 && (
+          {/* Show link to interactive tool for projects with web apps */}
+          {(project.id === 1 || project.id === 2) && (
             <Link
-              to="/projects/fultonsearch"
+              to={project.id === 1 ? "/projects/fultonsearch" : "/projects/blacksdictionary"}
               className="contact-btn primary"
               style={{
                 display: 'inline-block',

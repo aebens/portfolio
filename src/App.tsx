@@ -16,6 +16,10 @@ function App() {
           path="/projects/fultonsearch"
           element={<ProjectPage project="fultonsearch" />}
         />
+        <Route
+          path="/projects/blacksdictionary"
+          element={<ProjectPage project="blacksdictionary" />}
+        />
       </Routes>
       <Footer />
     </BrowserRouter>

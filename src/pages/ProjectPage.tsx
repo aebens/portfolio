@@ -1,4 +1,5 @@
 import FultonSearchBuilder from '../components/projects/FultonSearch/FultonSearchBuilder';
+import BlacksDictionary from '../components/projects/BlacksDictionary/BlacksDictionary';
 
 interface ProjectPageProps {
   project: string;
@@ -7,6 +8,10 @@ interface ProjectPageProps {
 export default function ProjectPage({ project }: ProjectPageProps) {
   if (project === 'fultonsearch') {
     return <FultonSearchBuilder />;
+  }
+
+  if (project === 'blacksdictionary') {
+    return <BlacksDictionary />;
   }
 
   return (

@@ -16,6 +16,17 @@ export default function Navbar() {
   }, []);
 
   const scrollToSection = (sectionId: string) => {
+    const scrollWithOffset = (element: HTMLElement) => {
+      const navbarHeight = 80; // Account for navbar height
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - navbarHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    };
+
     // If we're not on the home page, navigate there first
     if (location.pathname !== '/') {
       navigate('/');
@@ -23,20 +34,20 @@ export default function Navbar() {
       setTimeout(() => {
         const element = document.getElementById(sectionId);
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
+          scrollWithOffset(element);
         }
       }, 100);
     } else {
       // Already on home page, just scroll
       const element = document.getElementById(sectionId);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        scrollWithOffset(element);
       }
     }
   };
 
   return (
-    <nav className={scrolled ? 'scrolled' : ''}>
+    <nav className={`main-navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="nav-left">
         <Link to="/" className="logo">Ashley Bens</Link>
         <span className="logo-tag">Digital Media Portfolio</span>
