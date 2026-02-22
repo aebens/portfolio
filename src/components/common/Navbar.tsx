@@ -55,6 +55,7 @@ export default function Navbar() {
       <ul className="nav-links">
         <li><a href="#projects" onClick={(e) => { e.preventDefault(); scrollToSection('projects'); }}>Projects</a></li>
         <li><a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}>About</a></li>
+        <li><Link to="/tech-stack">Tech Stack</Link></li>
         <li><a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>Contact</a></li>
       </ul>
     </nav>

@@ -4,6 +4,7 @@ import Footer from './components/common/Footer';
 import ScrollToTop from './components/common/ScrollToTop';
 import HomePage from './pages/HomePage';
 import ProjectPage from './pages/ProjectPage';
+import TechStackPage from './pages/TechStackPage';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           path="/projects/blacksdictionary"
           element={<ProjectPage project="blacksdictionary" />}
         />
+        <Route path="/tech-stack" element={<TechStackPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
