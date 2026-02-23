@@ -32,6 +32,29 @@ const programmingLanguages: Tool[] = [
   },
 ];
 
+const aiTools: Tool[] = [
+  {
+    name: "OpenAI ChatGPT",
+    description: "LLM used primarily for deep research, brainstorming, drafting content, image creation, and rapid prototyping of ideas.",
+  },
+  {
+    name: "Anthropic Claude",
+    description: "LLM used primarily for rapid prototyping and writing.  Experience includes Claude Code for development workflows and Claude Cowork for organization and rigorous documentation workflows.",
+  },
+  {
+    name: "Google Gemini",
+    description: "Google's multimodal AI, including Google AI Studio for prototyping and testing generative AI applications. Experience with image generation using Nanobanana.",
+  },
+  {
+    name: "Microsoft Copilot",
+    description: "AI-powered code completion and suggestions integrated into the development environment.",
+  },
+  {
+    name: "Perplexity",
+    description: "AI-powered research and search for sourcing information and exploring topics with cited references.",
+  },
+];
+
 const designTools: Tool[] = [
   {
     name: "Adobe Suite",
@@ -77,6 +100,15 @@ export default function TechStackPage() {
         <h2>Programming Languages</h2>
         <div className="tech-grid">
           {programmingLanguages.map((tool) => (
+            <ToolCard key={tool.name} tool={tool} />
+          ))}
+        </div>
+      </section>
+
+      <section className="tech-category">
+        <h2>AI Tools</h2>
+        <div className="tech-grid">
+          {aiTools.map((tool) => (
             <ToolCard key={tool.name} tool={tool} />
           ))}
         </div>
