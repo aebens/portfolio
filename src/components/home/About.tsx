@@ -52,7 +52,12 @@ export default function About() {
         <div className="about-grid">
           <div>
             <div className="about-item-label">Certifications and Licensure</div>
-            <div className="about-item-value">Certified Pre-award Research Administrator (CPRA), Certified Financial Research Administrator (CFRA), Microsoft Excel Expert (score 912), Prelimary License for Teaching History, 6-12</div>
+            <ul className="about-list">
+              <li>Certified Pre-award Research Administrator (CPRA)</li>
+              <li>Certified Financial Research Administrator (CFRA)</li>
+              <li>Microsoft Excel Expert (score 912)</li>
+              <li>Prelimary License for Teaching History, 6-12</li>
+            </ul>
           </div>
           <div>
             <div className="about-item-label">Human Languages</div>
