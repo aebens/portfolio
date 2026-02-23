@@ -587,6 +587,12 @@ body {
   margin-bottom: 4px;
 }
 
+.about-list ul {
+  list-style: circle;
+  padding-left: 20px;
+  margin: 2px 0 4px;
+}
+
 .about-tech-link {
   display: inline-block;
   margin-top: 32px;

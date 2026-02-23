@@ -30,26 +30,29 @@ export default function About() {
           <div>
             <div className="about-item-label">Education</div>
             <ul className="about-list">
-              <li>Harvard University, ALM in Extension Studies - Digital Media Design, expected February 2027</li>
+              <li>Harvard University, ALM in Extension Studies - Digital Media Design, expected February 2027
                 <ul>
                   <li>Graduate Certificate - Learning and Design Technology, 2025</li>
                 </ul>
-              <li>Harvard University (Extension School) - Graduate Certificate - Back-end Web Design, expected 2026</li>
+              </li>
+              <li>Harvard University (Extension School) - Graduate Certificate - Back-end Web Design, expected 2026
                 <ul>
-                  <li>Harvard University (Extension School) - Microcertificate Certificate - Database Management, expected 2026</li>
+                  <li>Harvard University (Extension School) - Microcertificate - Database Management, expected 2026</li>
                 </ul>
-              <li>Harvard University (Extension School) - Graduate Certificate - Project Management, 2024</li>
+              </li>
+              <li>Harvard University (Extension School) - Graduate Certificate - Project Management, 2024
                 <ul>
-                  <li>Harvard University (Extension School) - Microcertificate Certificate - Project Management Methodologies, 2023</li>
+                  <li>Harvard University (Extension School) - Microcertificate - Project Management Methodologies, 2023</li>
                 </ul>
+              </li>
               <li>Harvard University (Extension School) - Graduate Certificate - Front-end Web Design, 2020</li>
               <li>Tufts University, MAT - Middle and High School Education (History), 2015</li>
               <li>Middlebury College, BA - German, Religion minor, 2009</li>
             </ul>
           </div>
           <div>
-            <div className="about-item-label">Certifications</div>
-            <div className="about-item-value">Certified Pre-award Research Administrator (CPRA), Certified Financial Research Administrator (CFRA), Microsoft Excel Expert (score 912)</div>
+            <div className="about-item-label">Certifications and Licensure</div>
+            <div className="about-item-value">Certified Pre-award Research Administrator (CPRA), Certified Financial Research Administrator (CFRA), Microsoft Excel Expert (score 912), Prelimary License for Teaching History, 6-12</div>
           </div>
           <div>
             <div className="about-item-label">Human Languages</div>
