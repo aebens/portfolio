@@ -552,11 +552,15 @@ body {
   font-size: 0.92rem;
 }
 
+.about-education {
+  margin-top: 32px;
+  margin-bottom: 28px;
+}
+
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
-  margin-top: 32px;
 }
 
 .about-item-label {

@@ -35,7 +35,7 @@ const programmingLanguages: Tool[] = [
 const designTools: Tool[] = [
   {
     name: "Adobe Suite",
-    description: "Photoshop, Illustrator, InDesign, and Premiere Pro for graphic design, photo editing, and video production.",
+    description: "Audition, Illustrator, Lightroom, Photoshop, and Premiere Pro for full-stack media production.",
   },
   {
     name: "Articulate",
