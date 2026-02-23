@@ -24,13 +24,25 @@ export default function About() {
           for the Master of Liberal Arts in Extension Studies, field: Digital Media
           Design at the Harvard Extension School. Expected graduation is February 2027.
           This degree has been instrumental in exposing me to a wide array of digital
-          media projects.
+          media projects.  While the ALM is only 12 courses, including the capstone, I have made use of my tuition remission benefit at Harvard to take many more courses than were required.
         </p>
         <div className="about-grid">
           <div>
             <div className="about-item-label">Education</div>
             <ul className="about-list">
               <li>Harvard University, ALM in Extension Studies - Digital Media Design, expected February 2027</li>
+                <ul>
+                  <li>Graduate Certificate - Learning and Design Technology, 2025</li>
+                </ul>
+              <li>Harvard University (Extension School) - Graduate Certificate - Back-end Web Design, expected 2026</li>
+                <ul>
+                  <li>Harvard University (Extension School) - Microcertificate Certificate - Database Management, expected 2026</li>
+                </ul>
+              <li>Harvard University (Extension School) - Graduate Certificate - Project Management, 2024</li>
+                <ul>
+                  <li>Harvard University (Extension School) - Microcertificate Certificate - Project Management Methodologies, 2023</li>
+                </ul>
+              <li>Harvard University (Extension School) - Graduate Certificate - Front-end Web Design, 2020</li>
               <li>Tufts University, MAT - Middle and High School Education (History), 2015</li>
               <li>Middlebury College, BA - German, Religion minor, 2009</li>
             </ul>
