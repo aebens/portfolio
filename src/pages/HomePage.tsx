@@ -8,9 +8,12 @@ import Contact from '../components/home/Contact';
 import { projects } from '../data/projects';
 import type { TopicFilter, MediumFilter } from '../data/types';
 
+const allTech = ['all', ...Array.from(new Set(projects.flatMap((p) => p.tech)))];
+
 export default function HomePage() {
   const [activeTopicFilter, setActiveTopicFilter] = useState<TopicFilter>('all');
   const [activeMediumFilter, setActiveMediumFilter] = useState<MediumFilter>('all');
+  const [activeTechFilter, setActiveTechFilter] = useState<string>('all');
   const [detailPanelOpen, setDetailPanelOpen] = useState(false);
   const [currentDetailIndex, setCurrentDetailIndex] = useState(-1);
 
@@ -18,9 +21,10 @@ export default function HomePage() {
     return projects.filter((p) => {
       const topicMatch = activeTopicFilter === 'all' || p.topic === activeTopicFilter;
       const mediumMatch = activeMediumFilter === 'all' || p.medium === activeMediumFilter;
-      return topicMatch && mediumMatch;
+      const techMatch = activeTechFilter === 'all' || p.tech.includes(activeTechFilter);
+      return topicMatch && mediumMatch && techMatch;
     });
-  }, [activeTopicFilter, activeMediumFilter]);
+  }, [activeTopicFilter, activeMediumFilter, activeTechFilter]);
 
   const openDetail = (index: number) => {
     setCurrentDetailIndex(index);
@@ -45,8 +49,11 @@ export default function HomePage() {
         <ProjectFilters
           activeTopicFilter={activeTopicFilter}
           activeMediumFilter={activeMediumFilter}
+          activeTechFilter={activeTechFilter}
           setActiveTopicFilter={setActiveTopicFilter}
           setActiveMediumFilter={setActiveMediumFilter}
+          setActiveTechFilter={setActiveTechFilter}
+          availableTech={allTech}
           resultsCount={filteredProjects.length}
         />
         <ProjectGrid projects={filteredProjects} onCardClick={openDetail} />

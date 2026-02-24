@@ -3,16 +3,22 @@ import type { TopicFilter, MediumFilter } from '../../data/types';
 interface ProjectFiltersProps {
   activeTopicFilter: TopicFilter;
   activeMediumFilter: MediumFilter;
+  activeTechFilter: string;
   setActiveTopicFilter: (filter: TopicFilter) => void;
   setActiveMediumFilter: (filter: MediumFilter) => void;
+  setActiveTechFilter: (filter: string) => void;
+  availableTech: string[];
   resultsCount: number;
 }
 
 export default function ProjectFilters({
   activeTopicFilter,
   activeMediumFilter,
+  activeTechFilter,
   setActiveTopicFilter,
   setActiveMediumFilter,
+  setActiveTechFilter,
+  availableTech,
   resultsCount,
 }: ProjectFiltersProps) {
   const topicFilters: { value: TopicFilter; label: string }[] = [
@@ -51,6 +57,20 @@ export default function ProjectFilters({
               onClick={() => setActiveMediumFilter(filter.value)}
             >
               {filter.label}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className="filter-group">
+        <span className="filter-label">Tools</span>
+        <div className="filter-chips">
+          {availableTech.map((tech) => (
+            <button
+              key={tech}
+              className={`filter-chip ${activeTechFilter === tech ? 'active' : ''}`}
+              onClick={() => setActiveTechFilter(tech)}
+            >
+              {tech === 'all' ? 'All' : tech}
             </button>
           ))}
         </div>
