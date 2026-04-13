@@ -27,35 +27,48 @@ export default function About() {
           media projects.  While the ALM is only 12 courses, including the capstone, I have made use of my tuition remission benefit at Harvard to take many more courses than were required.
         </p>
         <div className="about-education">
-          <div className="about-item-label">Education</div>
+          <div className="about-item-label">Education - Degrees</div>
           <ul className="about-list">
-            <li>Harvard University, ALM in Extension Studies - Digital Media Design, expected February 2027
-              <ul>
-                <li>Graduate Certificate - Learning and Design Technology, 2025</li>
-              </ul>
-            </li>
-            <li>Harvard University (Extension School) - Graduate Certificate - Back-end Web Design, expected 2026
-              <ul>
-                <li>Harvard University (Extension School) - Microcertificate - Database Management, expected 2026</li>
-              </ul>
-            </li>
-            <li>Harvard University (Extension School) - Graduate Certificate - Project Management, 2024
-              <ul>
-                <li>Harvard University (Extension School) - Microcertificate - Project Management Methodologies, 2023</li>
-              </ul>
-            </li>
-            <li>Harvard University (Extension School) - Graduate Certificate - Front-end Web Design, 2020</li>
+            <li>Harvard University, ALM in Extension Studies - Digital Media Design, expected February 2027</li>
             <li>Tufts University, MAT - Middle and High School Education (History), 2015</li>
             <li>Middlebury College, BA - German, Religion minor, 2009</li>
+          </ul>
+        </div>
+        <div className="about-education">
+          <div className="about-item-label">Education - Certificates</div>
+          <ul className="about-list">
+            <li>Harvard Extension School
+              <ul>
+                
+                <li>Graduate Certificate - Back-end Web Design, expected 2026
+                  <ul>
+                    <li>Microcertificate - Database Management, expected 2026</li>
+                  </ul>
+                </li>
+                <li>Graduate Certificate - Learning and Design Technology, 2025</li>
+                <li>Graduate Certificate - Project Management, 2024
+                  <ul>
+                    <li>Microcertificate - Project Management Methodologies, 2023</li>
+                  </ul>
+                </li>
+                <li>Graduate Certificate - Front-end Web Design, 2020</li>
+              </ul>
+            </li>
+            <li>Digital Learning Institute
+              <ul>
+                <li>Associate Certificate in AI for Learning, Jan 2025 – Apr 2025</li>
+              </ul>
+            </li>
           </ul>
         </div>
         <div className="about-grid">
           <div>
             <div className="about-item-label">Certifications and Licensure</div>
             <ul className="about-list">
-              <li>Certified Pre-award Research Administrator (CPRA)</li>
-              <li>Certified Financial Research Administrator (CFRA)</li>
+              <li>Certified Digital Learning Associate (CDLA) - Digital Learning Institute, May 2025</li>
               <li>Microsoft Excel Expert (score 912)</li>
+              <li>Certified Financial Research Administrator (CFRA), 2018-present</li>
+              <li>Certified Pre-award Research Administrator (CPRA), 2016-present</li>
               <li>Prelimary License for Teaching History, 6-12</li>
             </ul>
           </div>
