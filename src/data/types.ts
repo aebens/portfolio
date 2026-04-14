@@ -1,4 +1,4 @@
-export type TopicFilter = 'all' | 'genealogy';
+export type TopicFilter = 'all' | 'genealogy' | 'reference';
 export type MediumFilter = 'all' | 'webapp';
 
 export interface Project {
