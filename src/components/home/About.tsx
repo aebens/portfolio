@@ -14,7 +14,7 @@ export default function About() {
       <div className="about-content">
         <h2>About</h2>
         <p>
-          I am an instructional design and digital media media professional with a focus on research administration and genealogy.
+          I am an instructional design and digital media professional with a focus on research administration and genealogy.
           I embrace artificial intelligence (AI) to efficiently create media
           and rich learning experiences.
         </p>
@@ -22,64 +22,18 @@ export default function About() {
           I am the Director of Training and Development for Research Administration
           in Sponsored Programs at Boston University, and I am a degree candidate
           for the Master of Liberal Arts in Extension Studies, field: Digital Media
-          Design at the Harvard Extension School. Expected graduation is February 2027.
-          This degree has been instrumental in exposing me to a wide array of digital
-          media projects.  While the ALM is only 12 courses, including the capstone, I have made use of my tuition remission benefit at Harvard to take many more courses than were required.
+          Design at the Harvard Extension School. 
+          
+          I self-identify as a lifelong learner, and I spend a lot of time seeking opportunities to learn anything I can.
         </p>
-        <div className="about-education">
-          <div className="about-item-label">Education - Degrees</div>
-          <ul className="about-list">
-            <li>Harvard University, ALM in Extension Studies - Digital Media Design, expected February 2027</li>
-            <li>Tufts University, MAT - Middle and High School Education (History), 2015</li>
-            <li>Middlebury College, BA - German, Religion minor, 2009</li>
-          </ul>
+        <div style={{ display: 'flex', gap: '16px', marginTop: '24px' }}>
+          <Link to="/cv" className="about-tech-link">
+            View my CV &rarr;
+          </Link>
+          <Link to="/tech-stack" className="about-tech-link">
+            View my tech stack &rarr;
+          </Link>
         </div>
-        <div className="about-education">
-          <div className="about-item-label">Education - Certificates</div>
-          <ul className="about-list">
-            <li>Harvard Extension School
-              <ul>
-                
-                <li>Graduate Certificate - Back-end Web Design, expected 2026
-                  <ul>
-                    <li>Microcertificate - Database Management, expected 2026</li>
-                  </ul>
-                </li>
-                <li>Graduate Certificate - Learning and Design Technology, 2025</li>
-                <li>Graduate Certificate - Project Management, 2024
-                  <ul>
-                    <li>Microcertificate - Project Management Methodologies, 2023</li>
-                  </ul>
-                </li>
-                <li>Graduate Certificate - Front-end Web Design, 2020</li>
-              </ul>
-            </li>
-            <li>Digital Learning Institute
-              <ul>
-                <li>Associate Certificate in AI for Learning, Jan 2025 – Apr 2025</li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-        <div className="about-grid">
-          <div>
-            <div className="about-item-label">Certifications and Licensure</div>
-            <ul className="about-list">
-              <li>Certified Digital Learning Associate (CDLA) - Digital Learning Institute, May 2025</li>
-              <li>Microsoft Excel Expert (score 912)</li>
-              <li>Certified Financial Research Administrator (CFRA), 2018-present</li>
-              <li>Certified Pre-award Research Administrator (CPRA), 2016-present</li>
-              <li>Prelimary License for Teaching History, 6-12</li>
-            </ul>
-          </div>
-          <div>
-            <div className="about-item-label">Human Languages</div>
-            <div className="about-item-value">German (B2), French (B2), Chinese (~A2), and some reading ability in Italian, Spanish, and surprise - Sumerian!</div>
-          </div>
-        </div>
-        <Link to="/tech-stack" className="about-tech-link">
-          View my tech stack &rarr;
-        </Link>
       </div>
     </section>
   );

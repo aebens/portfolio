@@ -13,4 +13,5 @@ export interface Project {
   body: string; // HTML string
   tech: string[];
   image?: string; // Optional project screenshot
+  externalUrl?: string; // Optional external URL for iframed projects
 }

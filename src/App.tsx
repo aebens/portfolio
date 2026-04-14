@@ -5,6 +5,7 @@ import ScrollToTop from './components/common/ScrollToTop';
 import HomePage from './pages/HomePage';
 import ProjectPage from './pages/ProjectPage';
 import TechStackPage from './pages/TechStackPage';
+import CVPage from './pages/CVPage';
 
 function App() {
   return (
@@ -21,6 +22,11 @@ function App() {
           path="/projects/blacksdictionary"
           element={<ProjectPage project="blacksdictionary" />}
         />
+        <Route
+          path="/projects/pokemondb"
+          element={<ProjectPage project="pokemondb" />}
+        />
+        <Route path="/cv" element={<CVPage />} />
         <Route path="/tech-stack" element={<TechStackPage />} />
       </Routes>
       <Footer />

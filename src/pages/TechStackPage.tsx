@@ -53,6 +53,18 @@ const aiTools: Tool[] = [
     name: "Perplexity",
     description: "AI-powered research and search for sourcing information and exploring topics with cited references.",
   },
+  {
+    name: "ElevenLabs",
+    description: "Advanced text-to-speech and voice AI for generating realistic voiceovers and audio content for instructional materials and digital media projects.",
+  },
+  {
+    name: "RunwayML",
+    description: "AI-powered video generation, image manipulation, and creative effects for producing high-quality visual content and animated media.",
+  },
+  {
+    name: "NotebookLM",
+    description: "Google's AI research assistant for analyzing and synthesizing information from documents, creating study guides, podcasts, and interactive learning materials.",
+  },
 ];
 
 const designTools: Tool[] = [

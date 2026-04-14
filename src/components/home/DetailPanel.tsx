@@ -80,9 +80,9 @@ export default function DetailPanel({
         </div>
         <div className="detail-hero">
           {imageSrc ? (
-            project.id === 1 || project.id === 2 ? (
+            project.id === 1 || project.id === 2 || project.id === 3 ? (
               <Link
-                to={project.id === 1 ? "/projects/fultonsearch" : "/projects/blacksdictionary"}
+                to={project.id === 1 ? "/projects/fultonsearch" : project.id === 2 ? "/projects/blacksdictionary" : "/projects/pokemondb"}
                 style={{ display: 'block', width: '100%', height: '100%' }}
               >
                 <img
@@ -126,9 +126,9 @@ export default function DetailPanel({
           />
 
           {/* Show link to interactive tool for projects with web apps */}
-          {(project.id === 1 || project.id === 2) && (
+          {(project.id === 1 || project.id === 2 || project.id === 3) && (
             <Link
-              to={project.id === 1 ? "/projects/fultonsearch" : "/projects/blacksdictionary"}
+              to={project.id === 1 ? "/projects/fultonsearch" : project.id === 2 ? "/projects/blacksdictionary" : "/projects/pokemondb"}
               className="contact-btn primary"
               style={{
                 display: 'inline-block',

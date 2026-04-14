@@ -34,5 +34,21 @@ export const projects: Project[] = [
       <p>The interface allows researchers to quickly search and browse entries, with the original 1891 definitions preserved. The tool bridges the gap between archaic legal language and contemporary understanding, helping researchers accurately interpret historical documents.</p>`,
     tech: ["React", "TypeScript", "Anthropic Claude", "Google Gemini"],
     image: "/images/blacks-dictionary.png"
+  },
+  {
+    id: 3,
+    title: "Pokémon Database",
+    desc: "A comprehensive searchable database of Pokémon with stats, types, abilities, and evolution information.",
+    topic: "reference",
+    topicLabel: "Reference",
+    medium: "webapp",
+    mediumLabel: "Web App",
+    date: "2024",
+    body: `<p>An interactive Pokémon database providing quick access to detailed information about all Pokémon, including their stats, types, abilities, and evolution chains.</p>
+      <h3>Features</h3>
+      <p>Search and filter Pokémon by various criteria, view detailed stats and abilities, and explore evolution relationships. A useful tool for trainers, researchers, and enthusiasts.</p>`,
+    tech: ["Web App"],
+    image: "/images/pokemondb.png",
+    externalUrl: "https://aebens.github.io/PokemonDB/#/"
   }
 ];
